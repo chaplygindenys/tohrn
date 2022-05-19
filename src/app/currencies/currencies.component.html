@@ -1,0 +1,10 @@
+<h2>{{currency.txt | titlecase }}</h2>
+<div><span>Currency Code: </span>{{currency.cc}}</div>
+<div><span>Name: </span>{{currency.txt}}</div>
+<div><span>Rate: </span>{{currency.rate}}</div>
+<div><span>Update Date: </span>{{currency.exchangedate}}</div>
+
+<div>
+  <label for="rate">Currency rate: </label>
+  <input id="rate" [(ngModel)]="currency.rate" placeholder="rate">
+</div>
