@@ -20,6 +20,12 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
+#sertf
+myProject_keyAndCertBundle.p12
+key_b3af21af-7060-4d13-855a-3c8099d1d831.pem
+cert.pem
+
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json

@@ -1,10 +1,100 @@
-<h2>{{currency.txt | titlecase }}</h2>
-<div><span>Currency Code: </span>{{currency.cc}}</div>
-<div><span>Name: </span>{{currency.txt}}</div>
-<div><span>Rate: </span>{{currency.rate}}</div>
-<div><span>Update Date: </span>{{currency.exchangedate}}</div>
+<div class="currency-select">
+   <table >
+      <tbody>
+         <tr>
+           <td>
+              <input 
+               class="currency-input"
+                aria-label="Aria is or type amount of currency"
+                type="number"
+                [(ngModel)]="currencyExchage.amountFirst"
+                (ngModelChange)="setExchageFirstToSecond(currencyExchage.amountFirst)"
+                placeholder="1"
+               />
+           </td>
+           <td class="td-betveen"></td>
+           <td>
+              <div class="select-container">
+                                 <!-- first form -->
+                  <select 
+                     id="currencyName"
+                     class="select"
+                     required
+                     [(ngModel)]="currencyExchage.currencyNameFirst"
+                     name="currencyName"
+                     #currencyName="ngModel"
+                     (change)="selectCurrencyFirst(currencyExchage.currencyNameFirst)"
+                  >
+                     <option value="" disabled>Choose a currency</option>
+                     <option *ngFor="let name of   currencies" [value]="name.currencyName">
+                        {{name.currencyName}}
+                     </option>
+                  </select>
+                  <div class="place-right"></div>
+                  <div class="cont-sp">
+                     <span class="z1asCe K1bG5d"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></span>
+                  </div>
+              </div>
+           </td>
+         </tr>
+         <tr class="lOIRyc"></tr>
+         <tr>
+            <td>
+               <input 
+                 class="currency-input"
+                 aria-label="Aria is or type amount of currency"
+                 type="number"
+                 [(ngModel)]="currencyExchage.amountSecond"
+                 (ngModelChange)="setExchageSecondToFirst(currencyExchage.amountSecond)"
+                 placeholder="1"               
+              />
+            </td>
+            <td class="td-betveen"></td>
+            <td>
+               <div class="select-container">
+                                 <!-- second form -->
 
-<div>
-  <label for="rate">Currency rate: </label>
-  <input id="rate" [(ngModel)]="currency.rate" placeholder="rate">
+                  <select 
+                     id="currencyName"
+                     class="select"
+                     required
+                     [(ngModel)]="currencyExchage.currencyNameSecond"
+                     name="currencyName"
+                     #currencyName="ngModel"
+                     (change)="selectCurrencySecond(currencyExchage.currencyNameSecond)"
+                  >
+                     <!-- <option value="" disabled>Choose a currency</option> -->
+                     <option *ngFor="let name of   currencies" [value]="name.currencyName">
+                        {{name.currencyName}}
+                     </option>
+                  </select>
+                   <div class="place-right"></div>
+                   <div class="cont-sp">
+                      <span class="z1asCe K1bG5d"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></span>
+                   </div>
+               </div>
+            </td>
+          </tr>
+      </tbody>
+   </table>
+</div>
+
+<div class="rates-container">
+   <!-- first table -->
+   <div *ngIf="currencyExchage.currencyNameFirst" [class.rate-container]="currencyExchage.currencyNameFirst">
+      <h2>{{currencyExchage.currencyNameFirst}} </h2>
+      <div>Rate:{{currencyExchage.amountFirst}}
+         {{currencyExchage.currencyCodeCharFirst | uppercase}} = 
+         {{currencyExchage.amountSecond}}
+         {{currencyExchage.currencyCodeCharSecond | uppercase}}</div>
+   </div>
+   <!-- second table -->
+   <div *ngIf="currencyExchage.currencyNameSecond" [class.rate-container]="currencyExchage.currencyNameSecond">
+      <h2>{{currencyExchage.currencyNameSecond}}</h2>
+      <div>Rate:{{currencyExchage.amountSecond}}
+         {{currencyExchage.currencyCodeCharSecond | uppercase}} = 
+         {{currencyExchage.amountFirst}}
+         {{currencyExchage.currencyCodeCharFirst | uppercase}} 
+      </div>
+   </div>
 </div>
