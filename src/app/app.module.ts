@@ -9,6 +9,7 @@ import { CurrenciesComponent } from './currencies/currencies.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
 import { ExchageComponent } from './exchage/exchage.component';
 import { MessagesComponent } from './messages/messages.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MessagesComponent } from './messages/messages.component';
     CurrenciesComponent,
     HeroFormComponent,
     ExchageComponent,
-    MessagesComponent
+    MessagesComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

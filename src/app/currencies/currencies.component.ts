@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CurrencyService } from '../currency.service';
+import { MessageService } from '../message.service';
+
 import  { Currency } from '../currency'
 import  { Exchage } from '../exchage/exchage'
 
@@ -34,7 +36,10 @@ export class CurrenciesComponent implements OnInit {
   
 
 
-  constructor(private currencyService: CurrencyService) { }
+  constructor(
+    private currencyService: CurrencyService,
+    private messageService: MessageService
+  ) { };
 
   ngOnInit(): void {
     this.getCurrencies();
@@ -51,8 +56,9 @@ export class CurrenciesComponent implements OnInit {
     )
   };
   setCurrencyExchageFirst(currency: Currency) {
-    this.currencyExchage.currencyCodeCharFirst = currency.currencyCodeChar
-    this.currencyExchage.currencyCodeFirst = currency.currencyCode
+    this.currencyExchage.currencyCodeCharFirst = currency.currencyCodeChar;
+    this.currencyExchage.currencyCodeFirst = currency.currencyCode;
+    this.messageService.add(`currrencyComponent: Selected ${currency.currencyCodeChar}`);
   };
 
   selectCurrencySecond(currencyName : string): void{
