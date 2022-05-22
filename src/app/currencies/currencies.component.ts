@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
 
+import { CurrencyService } from '../currency.service';
 import  { Currency } from '../currency'
-import  { CURRENCIES } from '../mock-currencies'
 import  { Exchage } from '../exchage/exchage'
 
 @Component({
@@ -13,7 +12,7 @@ import  { Exchage } from '../exchage/exchage'
 export class CurrenciesComponent implements OnInit {
 
   
-  currencies = CURRENCIES;
+  currencies: Currency[] = [];
   currencyExchage = new Exchage(
     "EURO",
     "EUR",
@@ -35,11 +34,15 @@ export class CurrenciesComponent implements OnInit {
   
 
 
-  constructor() { }
+  constructor(private currencyService: CurrencyService) { }
 
   ngOnInit(): void {
-  }
-  
+    this.getCurrencies();
+  };
+  getCurrencies(): void { 
+    this.currencyService.getCurrency()
+      .subscribe(currencies => this.currencies = currencies);
+  };
 
   selectCurrencyFirst(currencyName : string): void{
     this.currencies.map((currency)=>

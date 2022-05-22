@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { CurrenciesComponent } from './currencies/currencies.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
 import { ExchageComponent } from './exchage/exchage.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrenciesComponent,
     HeroFormComponent,
-    ExchageComponent
+    ExchageComponent,
+    MessagesComponent
   ],
   imports: [
     CommonModule,
