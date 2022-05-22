@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Currency } from '../currency';
+import { CurrencyService } from '../currency.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  currencies : Currency[] = [];
+
+  constructor(
+    private currencyService : CurrencyService
+  ) { };
 
   ngOnInit(): void {
-  }
+    this.getCurrencies();
+  };
 
-}
+  getCurrencies(): void {
+  this.currencyService.getCurrency()
+    .subscribe(currencies => this.currencies = currencies);
+  };
+};
