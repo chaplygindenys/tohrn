@@ -24,7 +24,14 @@ export class CurrenciesComponent implements OnInit {
     "USD",
     "840",
     1,
-    1,);
+    1,
+    "UKRAINIAN HRYVNA",
+    "UAN",
+    "980",
+    1,
+    37,
+    32
+  );
   
 
 
@@ -55,11 +62,31 @@ export class CurrenciesComponent implements OnInit {
       this.currencyExchage.currencyCodeCharSecond = currency.currencyCodeChar
       this.currencyExchage.currencyCodeSecond = currency.currencyCode
   };
+
   setExchageFirstToSecond(amountFirst:number){
-    console.log(amountFirst)
+    this.setExchageRateFirst();
+    this.currencyExchage.amountSecond =
+     (amountFirst * this.currencyExchage.rateFirst);
   };
   setExchageSecondToFirst(amountSecond:number){
-    console.log(amountSecond)
+    this.setExchageRateSecond();
+    this.currencyExchage.amountFirst =
+     (amountSecond * this.currencyExchage.rateSecond);
   };
 
+  setExchageRateFirst(){
+    this.currencyExchage.rateFirst =
+     ((this.currencyExchage.amountBase / 
+     this.currencyExchage.rateBaseToSecond)*
+     this.currencyExchage.rateBaseToFirst
+     );
+  };
+  setExchageRateSecond(){
+    this.currencyExchage.rateSecond =
+     ((this.currencyExchage.amountBase / 
+     this.currencyExchage.rateBaseToFirst)*
+     this.currencyExchage.rateBaseToSecond
+     );
+  };
+ 
 }

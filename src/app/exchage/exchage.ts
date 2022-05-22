@@ -10,6 +10,13 @@ export class Exchage {
         public currencyCodeCharSecond:string,
         public currencyCodeSecond:string,
         public amountSecond:number,
-        public rateSecond:number       
+        public rateSecond:number,
+        public currencyNameBase:string,
+        public currencyCodeCharBase:string,
+        public currencyCodeBase:string,
+        public amountBase:number,
+        public rateBaseToFirst:number,
+        public rateBaseToSecond:number,
+
     ){}
 }
