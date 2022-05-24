@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
 import { CurrencyService } from '../currency.service';
 import { MessageService } from '../message.service';
 
@@ -45,8 +47,10 @@ export class CurrenciesComponent implements OnInit {
     this.getCurrencies();
   };
   getCurrencies(): void { 
-    this.currencyService.getCurrency()
-      .subscribe(currencies => this.currencies = currencies);
+
+   const currencies = of(this.currencyService.getCurrenciesFromMasssiveMonobank());
+     currencies.subscribe(currencies=>this.currencies= currencies)
+   console.log(this.currencies );
   };
 
   selectCurrencyFirst(currencyName : string): void{

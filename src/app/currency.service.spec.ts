@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CurrencyService } from './currency.service';
 
-describe('CurrencyServiceService', () => {
+describe('CurrencyService', () => {
   let service: CurrencyService;
 
   beforeEach(() => {
