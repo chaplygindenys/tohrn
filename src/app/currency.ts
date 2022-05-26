@@ -2,12 +2,12 @@ export interface Currency{
     
     currencyBaseName:string;
     currencyBaseCodeChar:string;
-    currencyBaseCode:string;
+    currencyBaseCode:number;
     currencyName:string;
     currencyCodeChar:string;
-    currencyCode:string;
+    currencyCode:number;
     currencyRate:number;
     currencyRateToBase:number;
-    currencyDate:string;
+    currencyDate:number;
 
 }

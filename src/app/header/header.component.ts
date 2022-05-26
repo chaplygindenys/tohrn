@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Currency } from '../currency';
 import { CurrencyService } from '../currency.service';
 import { GovUa } from '../gov-Ua';
-import { Monobank } from '../monobank';
+import { Monobank } from '../models/monobank';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit {
   
 
   getCurrencies(): void {
-    this.currencyService.getMassiveMonobank()
-    .subscribe(heroes => this.massiveMonobank = heroes);
-   console.log(this.massiveMonobank );
+   
+    
+   console.log(this.currencies);
   };
 };

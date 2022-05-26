@@ -7,6 +7,10 @@ import { MessageService } from '../message.service';
 
 import  { Currency } from '../currency'
 import  { Exchage } from '../exchage/exchage'
+import { Monobank } from '../models/monobank';
+import { MASSIVEGOVUA } from '../mock-govUa';
+import { GovUa } from '../gov-Ua';
+import { MASSIVEMONOBANK } from '../mock-massiveMonobank';
 
 @Component({
   selector: 'app-currencies',
@@ -15,22 +19,28 @@ import  { Exchage } from '../exchage/exchage'
 })
 export class CurrenciesComponent implements OnInit {
 
-  
-  currencies: Currency[] = [];
+  private monoBankUrl = "https://api.monobank.ua/bank/currency";
+  private govUaUrl = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json";
+  private todosUrl = "https://jsonplaceholder.typicode.com/todos";
+  private privatBankUrl = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5";
+
+   massiveMonobank: Monobank[] =[];
+   currencies: Currency[] = [];
+
   currencyExchage = new Exchage(
     "EURO",
     "EUR",
-    "987",
+    987,
     1,
     1,
     "U.S.DOLLAR",
     "USD",
-    "840",
+    840,
     1,
     1,
     "UKRAINIAN HRYVNA",
     "UAN",
-    "980",
+    980,
     1,
     37,
     32
@@ -44,14 +54,107 @@ export class CurrenciesComponent implements OnInit {
   ) { };
 
   ngOnInit(): void {
-    this.getCurrencies();
-  };
-  getCurrencies(): void { 
+    // this.currencyService.setItemToLocalStorage (this.monoBankUrl);
+   
 
-   const currencies = of(this.currencyService.getCurrenciesFromMasssiveMonobank());
-     currencies.subscribe(currencies=>this.currencies= currencies)
-   console.log(this.currencies );
   };
+   
+
+  private massiveMonobankToCurrencies(massiveMonobank : Monobank[] ) :void{
+       this.currencies = [];
+    MASSIVEGOVUA.map((govUa:GovUa , key )=>{ 
+       massiveMonobank.map((monobank:Monobank) => {
+          if(govUa.r030 !== monobank.currencyCodeA || 980 !== monobank.currencyCodeB ){
+            console.log(monobank.currencyCodeB);}else{
+            
+            
+           this.currencies.push({ 
+             currencyBaseName : "Україрська гривня",
+             currencyBaseCodeChar: "UAN",
+             currencyBaseCode: 980,
+             currencyName: govUa.txt,
+             currencyCodeChar: govUa.cc,
+             currencyCode: monobank.currencyCodeA,
+             currencyRate: (monobank.rateCross? monobank.rateCross : (
+                 (monobank.rateBuy?monobank.rateBuy :0)+(monobank.rateSell?monobank.rateSell:0)
+                 )/2),
+              currencyRateToBase: (1/(monobank.rateCross? monobank.rateCross : (
+                (monobank.rateBuy?monobank.rateBuy :0)+(monobank.rateSell?monobank.rateSell:0)
+                )/2)),
+             currencyDate:monobank.date })
+           
+            //  if(monobank.currencyCodeB === 980){
+            //   currencyBaseName : "Україрська гривня";
+            //   currencyBaseCodeChar: "UAN";
+            //   currencyBaseCode: 980;
+            //   }else{
+            //     currencyBaseName: "Долар США";
+            //     currencyBaseCodeChar: "USD";
+            //     currencyBaseCode: 840;
+            //   }; 
+            // currencyName: govUa.txt;
+            // currencyCodeChar: govUa.cc;
+            // currencyCode: monobank.currencyCodeA;
+            // currencyRate: (
+            //   monobank.rateCross? monobank.rateCross : (
+            //     (monobank.rateBuy?monobank.rateBuy :0)+(monobank.rateSell?monobank.rateSell:0)
+            //     )/2);
+            // currencyRateToBase: (1/this.currencies[key].currencyRate);
+            // currencyDate:monobank.date; 
+            //   })
+
+          }
+        })
+    });
+    console.log(this.currencies);
+  };
+
+  getJsonfromLocalStorage(name:string): void { 
+    let url:string = this.monoBankUrl;
+    let jsonlocalStorage : string|null = this.monoBankUrl;
+    switch (name) {
+      case 'Monobank': 
+      url =this.monoBankUrl;
+      jsonlocalStorage = this.currencyService.getItemFromLocalStorage(url);
+       if (jsonlocalStorage !== null){
+       this.setMonobankExchage(jsonlocalStorage);
+      };
+       break;
+      case 'Todo': url= this.todosUrl;
+      jsonlocalStorage = this.currencyService.getItemFromLocalStorage(url);
+       if (jsonlocalStorage !== null){
+       this.setTodoExchage(jsonlocalStorage);
+      };
+      break;
+      case 'Privatbank': 
+      url= this.privatBankUrl;
+      jsonlocalStorage = this.currencyService.getItemFromLocalStorage(url);
+       if (jsonlocalStorage !== null){
+       this.setPrivatbankExchage(jsonlocalStorage);
+      };
+      break;
+      default: break; 
+    };
+  };
+
+  setMonobankExchage(jsonMonobank:string){
+  //  this.massiveMonobank = JSON.parse(jsonMonobank);
+  //  console.log(this.massiveMonobank);
+   this.massiveMonobankToCurrencies(MASSIVEMONOBANK);
+  };
+
+  setTodoExchage(jsonTodo:string){
+
+  };
+
+  setPrivatbankExchage(jsonPrivatbank:string){
+
+  };
+
+
+
+
+
 
   selectCurrencyFirst(currencyName : string): void{
     this.currencies.map((currency)=>

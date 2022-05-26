@@ -1,3 +1,16 @@
+<div>
+   <button type="button" class="clear"
+   (click)="getJsonfromLocalStorage('Todo')">Todo</button>
+</div>
+<div>
+   <button type="button" class="clear"
+   (click)="getJsonfromLocalStorage('Monobank')">Monobank</button>
+</div>
+<div>
+   <button type="button" class="clear"
+   (click)="getJsonfromLocalStorage('Privatbank')">Privatbank</button>
+</div>
+
 <div class="currency-select">
    <table >
       <tbody>
@@ -64,8 +77,8 @@
                      (change)="selectCurrencySecond(currencyExchage.currencyNameSecond)"
                   >
                      <!-- <option value="" disabled>Choose a currency</option> -->
-                     <option *ngFor="let name of   currencies" [value]="name.currencyName">
-                        {{name.currencyName}}
+                     <option *ngFor="let name of currencies " [value]="name.currencyCodeChar">
+                        {{name.currencyCodeChar}}
                      </option>
                   </select>
                    <div class="place-right"></div>
